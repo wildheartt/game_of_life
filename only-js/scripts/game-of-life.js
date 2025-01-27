@@ -1,5 +1,5 @@
-import { requestInterval } from "./functions/request-interval";
-import { restrictInputValue } from "./functions/restrict-input";
+import { requestInterval } from "./functions/request-interval.js";
+import { restrictInputValue } from "./functions/restrict-input.js";
 
 export class GameOfLife {
 	ctx;
