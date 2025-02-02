@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1737984778250" clover="3.2.0">
+  <project timestamp="1737984778250" name="All files">
+    <metrics statements="52" coveredstatements="48" conditionals="27" coveredconditionals="23" methods="7" coveredmethods="7" elements="86" coveredelements="78" complexity="0" loc="52" ncloc="52" packages="3" files="5" classes="5"/>
+    <package name="only-js.scripts.functions">
+      <metrics statements="24" coveredstatements="22" conditionals="11" coveredconditionals="9" methods="3" coveredmethods="3"/>
+      <file name="request-interval.js" path="/Users/wildheartt/game of life/game_of_life/only-js/scripts/functions/request-interval.js">
+        <metrics statements="15" coveredstatements="13" conditionals="5" coveredconditionals="3" methods="2" coveredmethods="2"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="128" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="66" type="stmt"/>
+        <line num="10" count="66" type="stmt"/>
+        <line num="11" count="66" type="stmt"/>
+        <line num="15" count="62" type="stmt"/>
+        <line num="16" count="62" type="stmt"/>
+        <line num="18" count="62" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="62" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+      </file>
+      <file name="restrict-input.js" path="/Users/wildheartt/game of life/game_of_life/only-js/scripts/functions/restrict-input.js">
+        <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="4" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="only-ts.interfacesOrTypes">
+      <metrics statements="2" coveredstatements="2" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
+      <file name="index.ts" path="/Users/wildheartt/game of life/game_of_life/only-ts/interfacesOrTypes/index.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="only-ts.scripts.functions">
+      <metrics statements="26" coveredstatements="24" conditionals="8" coveredconditionals="6" methods="3" coveredmethods="3"/>
+      <file name="request-interval.ts" path="/Users/wildheartt/game of life/game_of_life/only-ts/scripts/functions/request-interval.ts">
+        <metrics statements="16" coveredstatements="14" conditionals="3" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="128" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="66" type="stmt"/>
+        <line num="10" count="66" type="stmt"/>
+        <line num="11" count="66" type="stmt"/>
+        <line num="15" count="62" type="stmt"/>
+        <line num="16" count="62" type="stmt"/>
+        <line num="18" count="62" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="62" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="28" count="4" type="stmt"/>
+      </file>
+      <file name="restrict-input.ts" path="/Users/wildheartt/game of life/game_of_life/only-ts/scripts/functions/restrict-input.ts">
+        <metrics statements="10" coveredstatements="10" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="7" type="stmt"/>
+        <line num="4" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
