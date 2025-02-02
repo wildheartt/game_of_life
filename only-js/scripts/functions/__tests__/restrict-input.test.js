@@ -1,4 +1,4 @@
-import { restrictInputValue } from '../restrict-input';
+import { restrictInputValue } from '../restrict-input.js';
 
 describe('restrictInputValue', () => {
   let input;

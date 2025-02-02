@@ -1,4 +1,4 @@
-import { requestInterval } from '../request-interval';
+import { requestInterval } from '../request-interval.js';
 
 jest.useFakeTimers();
 

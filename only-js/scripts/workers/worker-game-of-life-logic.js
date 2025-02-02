@@ -7,8 +7,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Хранит состояние поля в виде карты, где ключ - строка с координатами ячейки, значение - булево значение,
-	 * показывающее, жива ли ячейка
 	 * @type {Map<string, boolean>}
 	 */
 	#field = new Map();
@@ -18,8 +16,7 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Хранит временное состояние поля в виде карты, где ключ - строка с координатами ячейки,
-	 * значение - булево значение, показывающее, жива ли ячейка
+
 	 * @type {Map<string, boolean>}
 	 */
 	#buffer = new Map();
@@ -45,8 +42,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Приватная функция
-	 * Создаёт поле с нуля
 	 * @param {boolean} random - рандомно генерировать элементы или нет
 	 * @returns {void}
 	 */
@@ -67,8 +62,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Публичная функция
-	 * Создаёт поле с нуля
 	 * @param {boolean} random - рандомно генерировать элементы или нет
 	 * @param {number} rows - количество строк поля
 	 * @param {number} cols - количество столбцов поля
@@ -91,7 +84,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Возвращает ключ в формате строки для определенной строки и столбца
 	 * @param {number} row - номер строки
 	 * @param {number} col - номер столбца
 	 * @returns {string} - ключ в формате строки
@@ -101,7 +93,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Возвращает количество соседей для определенной ячейки
 	 * @param {number} i - номер строки
 	 * @param {number} j - номер столбца
 	 * @returns {number} - количество соседей
@@ -111,9 +102,9 @@ class GameLifeLogic {
 
 		for (let x = -1; x <= 1; x++) {
 			for (let y = -1; y <= 1; y++) {
-				if (x === 0 && y === 0) continue; // Пропустить текущую ячейку
-				const row = (i + x + this.#rows) % this.#rows; // Использование операции % для циклической границы
-				const col = (j + y + this.#cols) % this.#cols; // Использование операции % для циклической границы
+				if (x === 0 && y === 0) continue; 
+				const row = (i + x + this.#rows) % this.#rows; 
+				const col = (j + y + this.#cols) % this.#cols; 
 				const key = this.#getKey(row, col);
 
 				if (this.#field.get(key)) {
@@ -168,7 +159,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Возвращает количество соседей для определенной ячейки
 	 * @param {'delete' | 'create'} typeAction - номер строки
 	 * @param {string} key - номер столбца
 	 */
@@ -183,11 +173,9 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Приватная функция
-	 * Изменяет размеры игрового поля
-	 * @param {number} newRows - количество строк
-	 * @param {number} newCols - количество стобцов
-	 * @param {boolean} random - рандомно генерировать ячейки или нет
+	 * @param {number} newRows 
+	 * @param {number} newCols 
+	 * @param {boolean} random 
 	 */
 	#resizeField(newRows, newCols, random) {
 		if (newRows === this.#rows && newCols === this.#cols) return;
@@ -243,8 +231,6 @@ class GameLifeLogic {
 	}
 
 	/**
-	 * Публичная функция
-	 * Изменяет размеры игрового поля
 	 * @param {number} newRows - количество строк
 	 * @param {number} newCols - количество стобцов
 	 * @param {boolean} random - рандомно генерировать ячейки или нет
