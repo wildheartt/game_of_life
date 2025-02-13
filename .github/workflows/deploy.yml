@@ -1,4 +1,4 @@
-name: Deploy Youtube-tutorials
+name: Deploy
 on:
   push:
     branches:
@@ -28,7 +28,6 @@ jobs:
         node-version: [22.x]
 
     steps:
-
       - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
