@@ -1,90 +1,86 @@
-
+/**
+ * @jest-environment jsdom
+ */
 import { requestInterval } from '../request-interval';
 
-jest.useFakeTimers();
-
 describe('requestInterval', () => {
+  let originalRAF: typeof window.requestAnimationFrame;
+  let now = 0;
+  let dateNowSpy: jest.SpyInstance<number, []>;
+
   beforeEach(() => {
-    jest.clearAllMocks();
-    global.requestAnimationFrame = jest.fn((cb) => setTimeout(cb, 16)); // Mock requestAnimationFrame
+    jest.useFakeTimers();
+    now = 0;
+    dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => now);
+
+    // Мокаем requestAnimationFrame: вместо него вызываем callback через 16 мс,
+    // передавая текущее значение now.
+    originalRAF = window.requestAnimationFrame;
+    window.requestAnimationFrame = jest.fn((cb: FrameRequestCallback) => {
+      return setTimeout(() => cb(now), 16) as unknown as number;
+    });
   });
 
-  it('should call the callback repeatedly when interval is 0', () => {
-    const callback = jest.fn();
-    const obj = requestInterval(callback, 0);
+  afterEach(() => {
+    jest.useRealTimers();
+    dateNowSpy.mockRestore();
+    window.requestAnimationFrame = originalRAF;
+  });
 
-    // Simulate multiple animation frames
-    for (let i = 0; i < 5; i++) {
+  describe('when interval is 0', () => {
+    it('calls the callback every frame', () => {
+      const callback = jest.fn();
+      const obj = requestInterval(callback, 0);
+
+      // Первый кадр: 16 мс
       jest.advanceTimersByTime(16);
-    }
+      expect(callback).toHaveBeenCalledTimes(1);
 
-    expect(callback).toHaveBeenCalledTimes(5);
-    expect(typeof obj.id).toBe('number');
-  });
-
-  it('should call the callback at specified intervals', () => {
-    const callback = jest.fn();
-    const interval = 1000; // 1 second
-
-    const obj = requestInterval(callback, interval);
-
-    const originalDateNow = Date.now;
-    let now = 0;
-    global.Date.now = jest.fn(() => now);
-
-    // Simulate frames up to 1000ms
-    for (let i = 0; i < 60; i++) {
-      // ~1 second at 60fps
-      now += 16;
+      // Второй кадр: ещё 16 мс
       jest.advanceTimersByTime(16);
-    }
+      expect(callback).toHaveBeenCalledTimes(2);
 
-    expect(callback).toHaveBeenCalledTimes(1);
-
-    // Simulate additional frames
-    for (let i = 0; i < 60; i++) {
-      now += 16;
+      // Третий кадр: ещё 16 мс
       jest.advanceTimersByTime(16);
-    }
+      expect(callback).toHaveBeenCalledTimes(3);
 
-    expect(callback).toHaveBeenCalledTimes(2);
-
-    // Restore Date.now
-    global.Date.now = originalDateNow;
+      expect(typeof obj.id).toBe('number');
+    });
   });
 
-  it('should adjust start time correctly after interval is exceeded', () => {
-    const callback = jest.fn();
-    const interval = 1000; // 1 second
+  describe('when interval > 0', () => {
+    it('calls the callback only when elapsed time reaches the interval', () => {
+      const callback = jest.fn();
+      const intervalMs = 100;
+      const obj = requestInterval(callback, intervalMs);
 
-    const obj = requestInterval(callback, interval);
+      // Изначально start = 0.
+      // Первый кадр: продвигаем время до 16 мс.
+      now = 16;
+      jest.advanceTimersByTime(16);
+      // delta = 16 (меньше 100), колбэк не вызывается.
+      expect(callback).toHaveBeenCalledTimes(0);
 
-    const originalDateNow = Date.now;
-    let now = 0;
-    global.Date.now = jest.fn(() => now);
+      // Второй кадр: продвигаем время до 100 мс.
+      now = 100;
+      jest.advanceTimersByTime(16);
+      // delta = 100, условие выполняется – вызываем callback.
+      expect(callback).toHaveBeenCalledTimes(1);
+      // start обновляется: start = 100 - (100 % 100) = 100.
 
-    // First callback at 1000ms
-    now = 1000;
-    jest.advanceTimersByTime(16);
-    expect(callback).toHaveBeenCalledTimes(1);
+      // Третий кадр: продвигаем время до 150 мс.
+      now = 150;
+      jest.advanceTimersByTime(16);
+      // delta = 150 - 100 = 50, условие не выполняется.
+      expect(callback).toHaveBeenCalledTimes(1);
 
-    // Second callback at 2000ms
-    now = 2000;
-    jest.advanceTimersByTime(16);
-    expect(callback).toHaveBeenCalledTimes(2);
+      // Четвёртый кадр: продвигаем время до 210 мс.
+      now = 210;
+      jest.advanceTimersByTime(16);
+      // delta = 210 - 100 = 110, условие выполняется – вызываем callback.
+      expect(callback).toHaveBeenCalledTimes(2);
 
-    // Third callback at 3000ms
-    now = 3000;
-    jest.advanceTimersByTime(16);
-    expect(callback).toHaveBeenCalledTimes(3);
-
-    // Restore Date.now
-    global.Date.now = originalDateNow;
-  });
-
-  it('should return an object with id property', () => {
-    const callback = jest.fn();
-    const obj = requestInterval(callback, 0);
-    expect(obj).toHaveProperty('id');
+      expect(typeof obj.id).toBe('number');
+    });
   });
 });

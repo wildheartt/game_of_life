@@ -1,11 +1,9 @@
-
 import { restrictInputValue } from '../restrict-input';
 
 describe('restrictInputValue', () => {
   let input: HTMLInputElement;
 
   beforeEach(() => {
-    // Создаем mock input элемент
     input = document.createElement('input');
     input.type = 'text';
   });

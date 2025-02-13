@@ -1,23 +1,40 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  roots: ['<rootDir>/only-js', '<rootDir>/only-ts'],
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
 
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.js$': 'babel-jest',
-  },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|ts)$',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-
-  collectCoverage: true,
-  coverageDirectory: 'coverage',
-  coverageThreshold: {
-    global: {
-      branches: 60,
-      functions: 60,
-      lines: 60,
-      statements: 60,
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+      useESM: true,
+      diagnostics: {
+        ignoreCodes: ['1343'],
+      },
     },
   },
 
-  testEnvironment: 'jest-environment-jsdom',
+  extensionsToTreatAsEsm: ['.ts'],
+
+  collectCoverageFrom: ['only-ts/**/*.ts', '!**/node_modules/**'],
+  coveragePathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '/only-ts/scripts/game-of-life.ts',
+    '/only-ts/scripts/index.ts',
+  ],
+
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+
+  moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+
+  transform: {
+    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
+  },
 };
