@@ -1,37 +1,35 @@
 {
     "compilerOptions": {
-        // Цель компиляции (можно и "ES2020", "ESNext" и т.д.)
+        "baseUrl": "./",
+        "paths": {
+            "@scripts/*": [
+                "only-ts/scripts/*"
+            ]
+        },
         "target": "ESNext",
-        // Модульная система. Если у вас "type": "module" в package.json,
-        // можно оставить "module": "ESNext". Если возникнут сложности, попробуйте "CommonJS".
         "module": "ESNext",
-        // Разрешаем использовать DOM API, ESNext API и т.д.
         "lib": [
             "DOM",
             "ESNext"
         ],
-        // ВАЖНО: подключаем типы Jest и Node.
         "types": [
             "jest",
             "node"
         ],
-        // Пусть TypeScript ищет модули как в Node.js
         "moduleResolution": "node",
-        // Включаем строгий режим
         "strict": true,
-        // Не генерировать файлы .js на диске (если вам не нужно)
         "noEmit": true,
-        // Изолированная компиляция модулей (часто рекомендуют включать)
         "isolatedModules": true
     },
     "include": [
-        // Папки, в которых лежат ваш .ts / .js код
         "only-ts/**/*",
-        "only-js/**/*",
-        // Папки/файлы с тестами
         "**/*.test.ts",
         "**/*.test.js",
         "**/__tests__/*.ts",
         "**/__tests__/*.js"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
     ]
 }

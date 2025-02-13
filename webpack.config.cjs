@@ -1,39 +1,51 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './only-js/scripts/index.js',
+
+  entry: './scripts/index.ts',
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/game_of_life/',
-    clean: true,
   },
-  mode: 'development',
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: 'index.html',
-    }),
-  ],
+
   module: {
     rules: [
+      
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+     
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
+
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html', 
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
+  ],
+
   devServer: {
-    static: path.resolve(__dirname, 'dist'),
-    open: true,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     port: 8080,
+    hot: true,
+    open: true,
   },
 };
