@@ -5,7 +5,6 @@ import tsParser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
-  // Конфигурация для файлов-моков
   {
     files: ['__mocks__/**/*.js', 'only-ts/scripts/__mocks__/**/*.ts'],
     languageOptions: {

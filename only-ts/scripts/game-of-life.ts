@@ -191,13 +191,13 @@ export class GameOfLife {
 
     this.nodes.canvasNode.addEventListener('pointerdown', (event) => {
       if (this.loading === true) return;
-      if (event.button === 2 || event.button === 1) return false; // Если это правая или средняя кнопка мыши, это не тот клик
+      if (event.button === 2 || event.button === 1) return false; 
       this.isDragging = true;
       this.isRealDragging = false;
     });
 
     this.nodes.canvasNode.addEventListener('pointermove', (event) => {
-      if (event.button === 2 || event.button === 1) return false; // Если это правая или средняя кнопка мыши, это не тот клик
+      if (event.button === 2 || event.button === 1) return false;
       if (this.isDragging === true && this.loading === false) {
         this.isRealDragging = true;
         this.generateCellByClick(event, true);
@@ -349,9 +349,7 @@ export class GameOfLife {
   }
 
   private isClickOnElement(event: MouseEvent, element: Element): boolean {
-    const target = event.target as Element; // Получаем целевой элемент клика
-
-    // Проверяем, является ли целевой элемент или его родительские элементы равным заданному элементу
+    const target = event.target as Element;
     let currentNode: Element | null = target;
     while (currentNode != null) {
       if (currentNode === element) {
@@ -360,7 +358,6 @@ export class GameOfLife {
       currentNode = currentNode.parentElement;
     }
 
-    // Если не было найдено совпадений, возвращаем false
     return false;
   }
 
