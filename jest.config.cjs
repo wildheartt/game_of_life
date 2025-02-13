@@ -1,19 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
-
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-      useESM: true,
-      diagnostics: {
-        ignoreCodes: ['1343'],
-      },
-    },
-  },
-
-  extensionsToTreatAsEsm: ['.ts'],
 
   collectCoverageFrom: ['only-ts/**/*.ts', '!**/node_modules/**'],
   coveragePathIgnorePatterns: [
@@ -33,8 +21,23 @@ module.exports = {
   },
 
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  extensionsToTreatAsEsm: ['.ts'],
 
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.json',
+        useESM: true,
+        diagnostics: {
+          ignoreCodes: ['1343'],
+        },
+        babelConfig: {
+          plugins: [
+            ['babel-plugin-transform-import-meta', { importStyle: 'commonjs' }],
+          ],
+        },
+      },
+    ],
   },
 };
