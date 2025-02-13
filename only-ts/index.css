@@ -73,11 +73,6 @@ body {
   transition-property: opacity;
 }
 
-/* .popup_load {
-	opacity: 0.8;
-	pointer-events: none;
-} */
-
 .popup_hidden > *:not(.popup__close) {
   display: none;
 }

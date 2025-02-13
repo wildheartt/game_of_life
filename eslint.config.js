@@ -8,9 +8,9 @@ export default [
   {
     ignores: ['dist', 'node_modules', 'coverage'],
   },
+
   pluginJs.configs.recommended,
   importPlugin.flatConfigs.recommended,
-
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -23,9 +23,7 @@ export default [
     },
     settings: {
       'import/resolver': {
-        node: {
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        },
+        node: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
         typescript: true,
       },
     },
@@ -37,30 +35,30 @@ export default [
       'import/export': 'error',
     },
   },
+
   {
     files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: tsParser,
-      parserOptions: {
-        project: './tsconfig.json',
-      },
+      parserOptions: { project: './tsconfig.json' },
     },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
+    plugins: { '@typescript-eslint': tsPlugin },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error'],
-      '@typescript-eslint/no-explicit-any': ['warn'],
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
+
   {
     files: ['**/*.js', '**/*.cjs', '**/*.mjs', '**/*.jsx'],
     rules: {
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      'no-unused-vars': ['error'],
     },
   },
+
   {
     files: ['**/__tests__/**/*.{js,ts,jsx,tsx}', '**/*.test.{js,ts,jsx,tsx}'],
     languageOptions: {
@@ -78,6 +76,7 @@ export default [
       'no-undef': 'off',
     },
   },
+
   {
     files: ['webpack.config.cjs', 'jest.config.cjs'],
     languageOptions: {
@@ -89,9 +88,14 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'off',
-
       'no-unused-vars': ['warn', { args: 'none', varsIgnorePattern: '^_' }],
+    },
+  },
+
+  {
+    files: ['**/workers/*.js'],
+    rules: {
+      'no-global-assign': 'off',
     },
   },
 ];

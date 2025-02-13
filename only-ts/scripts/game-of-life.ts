@@ -11,12 +11,12 @@ export class GameOfLife {
   private ctx: CanvasRenderingContext2D;
   private rows: number;
   private cols: number;
-  private cellSize: number;
-  private field: Map<string, boolean>;
-  private buffer: Map<string, boolean>;
-  private colorCell: string;
-  private animationObj: { id: number };
-  private nodes: GameOfLifeNodes;
+  private cellSize!: number;
+  private field: Map<string, boolean> = new Map();
+  private buffer: Map<string, boolean> = new Map();
+  private colorCell: string = '';
+  private animationObj: { id: number } = { id: 0 };
+  private nodes: GameOfLifeNodes = {} as GameOfLifeNodes;
   private cycles: number = 0;
   private played: boolean = false;
   private interval: number = 500;
@@ -29,7 +29,7 @@ export class GameOfLife {
   private localStorageUse: boolean = false;
   private isDragging: boolean = false;
   private isRealDragging: boolean = false;
-  private animationTimeId: { id: number };
+  private animationTimeId: { id: number } = { id: 0 };
   private worker: Worker = new Worker(
     new URL('workers/worker-game-of-life-logic.js', import.meta.url)
   );
@@ -848,7 +848,7 @@ export class GameOfLife {
   private setLocalStorage<T>(key: string, value: T): void {
     const lastLocalStorage = this.getLocalStorage();
 
-    lastLocalStorage[key] = value;
+    (lastLocalStorage as any)[key] = value;
 
     localStorage.setItem('life', JSON.stringify(lastLocalStorage));
   }

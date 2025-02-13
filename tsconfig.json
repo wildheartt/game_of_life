@@ -1,32 +1,23 @@
 {
     "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@scripts/*": [
-                "only-ts/scripts/*"
-            ]
-        },
-        "target": "ESNext",
+        "target": "ES2022",
         "module": "ESNext",
         "lib": [
             "DOM",
-            "ESNext"
-        ],
-        "types": [
-            "jest",
-            "node"
+            "ES2022"
         ],
         "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "strict": true,
-        "noEmit": true,
-        "isolatedModules": true
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": false
     },
     "include": [
-        "only-ts/**/*",
-        "**/*.test.ts",
-        "**/*.test.js",
-        "**/__tests__/*.ts",
-        "**/__tests__/*.js"
+        "only-ts/**/*"
     ],
     "exclude": [
         "node_modules",

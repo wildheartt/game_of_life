@@ -1,3 +1,4 @@
+
 export interface GameOfLifeParams {
   injectedNode: HTMLElement;
   cellsCountX: number;
@@ -43,17 +44,4 @@ export interface GameOfLifeWorkerResult {
   activeCells: number;
   field: Map<string, boolean>;
   buffer: Map<string, boolean>;
-}
-
-export function isGameOfLifeParams(obj: any): obj is GameOfLifeParams {
-  return (
-    obj &&
-    obj.injectedNode instanceof HTMLElement &&
-    typeof obj.cellsCountX === 'number' &&
-    typeof obj.cellsCountY === 'number' &&
-    typeof obj.random === 'boolean' &&
-    typeof obj.speed === 'number' &&
-    typeof obj.localStorageUse === 'boolean' &&
-    typeof obj.popupHidden === 'boolean'
-  );
 }
