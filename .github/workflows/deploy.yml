@@ -1,34 +1,21 @@
-name: Deploy Youtube-tutorials
+name: Deploy
 on:
   push:
     branches:
-      - master
+      - tests-js
 
 permissions:
-  id-token: write
   contents: write
-  actions: write
-  checks: write
-  deployments: write
-  discussions: write
-  issues: write
-  pages: read
-  packages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [22.x]
-
     steps:
-
       - uses: actions/checkout@v4
 
       - name: Use Node.js ${{ matrix.node-version }}
@@ -38,12 +25,13 @@ jobs:
           cache: npm
 
       - name: Install Dependencies
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Build
-        run: |
-          npm run build
+        run: npm run build
+
+      - name: List files in dist
+        run: ls -la dist
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

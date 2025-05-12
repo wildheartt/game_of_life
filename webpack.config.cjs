@@ -1,37 +1,49 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: './only-js/scripts/index.js', // Указывает на правильный путь к index.js
-	output: {
-		path: path.resolve(__dirname, 'dist'), // Папка для финальной сборки
-		filename: 'bundle.js', // Имя скомпилированного файла
-		clean: true, // Очистка dist перед сборкой
-	},
-	mode: 'development', // Используйте 'production' для финальной сборки
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: './only-js/index.html', // Указывает на HTML-шаблон
-		}),
-	],
-	module: {
-		rules: [
-			{
-				test: /\.css$/, // Обработка CSS файлов
-				use: ['style-loader', 'css-loader'],
-			},
-			{
-				test: /\.js$/, // Обработка JS файлов
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-				},
-			},
-		],
-	},
-	devServer: {
-		static: path.resolve(__dirname, 'dist'), // Папка, которую сервер должен обслуживать
-		open: true, // Автоматически открывать браузер
-		port: 8080, // Порт для dev-сервера
-	},
+  entry: './only-ts/scripts/index.ts',
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
+    ],
+  },
+
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './only-ts/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
+  ],
+
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    port: 8080,
+    hot: true,
+    open: true,
+  },
 };

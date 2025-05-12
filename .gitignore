@@ -1,1 +1,14 @@
-node_modules
+
+coverage/
+*.lcov
+
+
+node_modules/
+
+# Кэш npm (опционально)
+.npm
+
+dist/
+dist-ssr/
+
+
